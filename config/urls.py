@@ -23,6 +23,7 @@ from config import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.main.urls' , namespace='main')),
+    path('artcile/', include('apps.article.urls' , namespace='article')),
 ]
 
 
