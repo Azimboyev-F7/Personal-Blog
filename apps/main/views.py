@@ -7,14 +7,14 @@ from django.shortcuts import render
 def index(request):
     context = {}    
 
-    return render(request, 'article/index.html', context)
+    return render(request, 'main/index.html', context)
 
 def about(request):
     context = {}    
 
-    return render(request, 'article/about.html', context)
+    return render(request, 'main/about.html', context)
 
 def contact(request):
     context = {}    
 
-    return render(request, 'article/contact.html', context)
+    return render(request, 'main/contact.html', context)
