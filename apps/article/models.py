@@ -5,7 +5,14 @@ from ckeditor.fields import RichTextField
 
 # Create your models here.
 
-class tags(models.Model):
+class Tags(models.Model):
+    name = models.CharField(max_length=221)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+class Category(models.Model):
     name = models.CharField(max_length=221)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -17,8 +24,8 @@ class Article(models.Model):
     slug = models.SlugField(max_length=221)
     content = RichTextField()
     image = models.ImageField(upload_to='articles/')
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    tags = models.ManyToManyField(tags, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+    tags = models.ManyToManyField(Tags, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -28,12 +35,7 @@ class Article(models.Model):
 
     
 
-class Category(models.Model):
-    name = models.CharField(max_length=221)
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.name
     
 
 class Comment(models.Model):
