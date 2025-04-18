@@ -15,6 +15,7 @@ class ContactAdmin(admin.ModelAdmin):
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'position', 'created_at')
+    list_display_links = ('id', 'name', 'position')
     search_fields = ('name', 'position')
     list_filter = ('created_at',)
     ordering = ('-created_at',)
