@@ -33,7 +33,15 @@ class Article(models.Model):
     
 
 
-    
+class Auhtor(models.Model):
+    name = models.CharField(max_length=221)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True, blank=True)
+    bio = models.TextField()
+    image = models.ImageField(upload_to='authors/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
 
 
     
