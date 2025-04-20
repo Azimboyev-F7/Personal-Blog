@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Category, Comment, Tags, Auhtor
+from .models import Article, Category, Comment, Tags, Author
 # Register your models here.
 
 
@@ -32,7 +32,7 @@ class TagsAdmin(admin.ModelAdmin):
     ordering = ('-id',)
     date_hierarchy = 'created_at'
 
-@admin.register(Auhtor)
+@admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'created_at')
     list_display_links = ('id', 'name')

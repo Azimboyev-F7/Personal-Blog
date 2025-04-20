@@ -33,7 +33,7 @@ class Article(models.Model):
     
 
 
-class Auhtor(models.Model):
+class Author(models.Model):
     name = models.CharField(max_length=221)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True, blank=True)
     bio = models.TextField()
