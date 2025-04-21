@@ -18,7 +18,7 @@ def article_list(request):
 def article_detail(request, slug):
     article = get_object_or_404(Article, slug=slug)
     author = get_object_or_404(Author)
-    category = get_object_or_404(Category, article=article)
+    category = Category.objects.all()
 
     context = {
         'article': article,

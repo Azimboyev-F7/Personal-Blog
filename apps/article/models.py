@@ -18,9 +18,20 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+ 
+class Author(models.Model):
+    name = models.CharField(max_length=221)
+    bio = models.TextField()
+    image = models.ImageField(upload_to='authors/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Article(models.Model):
     title = models.CharField(max_length=221)
+    author = models.ForeignKey('Author', on_delete=models.CASCADE, null=True, blank=True)
     slug = models.SlugField(max_length=221)
     content = RichTextField()
     image = models.ImageField(upload_to='articles/')
@@ -28,20 +39,19 @@ class Article(models.Model):
     tags = models.ManyToManyField(Tags, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self): 
+        return self.title
+    
+class Subarticle(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=221)
+    header_content = RichTextField()
+    image = models.ImageField(upload_to='articles/')
+    footer_content = RichTextField()
+
     def __str__(self):
         return self.title
     
-
-
-class Author(models.Model):
-    name = models.CharField(max_length=221)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True, blank=True)
-    bio = models.TextField()
-    image = models.ImageField(upload_to='authors/')
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
 
 
     

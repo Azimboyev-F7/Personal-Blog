@@ -1,11 +1,14 @@
 from django.contrib import admin
-from .models import Article, Category, Comment, Tags, Author
+from .models import Article, Category, Comment, Tags, Author, Subarticle
 # Register your models here.
 
-
+class SubarticleInline(admin.StackedInline):  # yoki admin.StackedInline
+    model = Subarticle
+    extra = 1  # Qo'shimcha bo'sh formalar soni
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
+    inlines = (SubarticleInline,)
     list_display = ('id', 'title', 'category', 'created_at')
     list_display_links = ('id', 'title')
     search_fields = ('title',)
