@@ -1,17 +1,25 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from .forms import ContactForm
+from .models import Feedback
+from apps.article.models import Article
 # Create your views here.
 
 
 
 def index(request):
-    context = {}    
+    articles = Article.objects.all().order_by('-created_at')[:3]
+    context = {
+        'articles': articles,
+    }    
 
     return render(request, 'main/index.html', context)
 
 def about(request):
-    context = {}    
+    feedback = Feedback.objects.all()
+    context = {
+        'object_list': feedback,
+    }    
 
     return render(request, 'main/about.html', context)
 

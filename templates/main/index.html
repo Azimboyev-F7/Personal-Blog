@@ -34,7 +34,7 @@
 						<div class="case">
 							<div class="row">
 								<div class="col-md-6 col-lg-6 col-xl-8 d-flex">
-									<a href="" class="img w-100 mb-3 mb-md-0" style="background-image: url('{{ article.image.url }}');"></a>
+									<a href="{% url 'article:detail' article.slug %}" class="img w-100 mb-3 mb-md-0" style="background-image: url('{{ article.image.url }}');"></a>
 								</div>
 								<div class="col-md-6 col-lg-6 col-xl-4 d-flex">
 									<div class="text w-100 pl-md-3">
@@ -46,13 +46,13 @@
 							<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
 							</ul>
 										<div class="meta">
-											<p class="mb-0"><a href="#">11/13/2019</a> | <a href="#">12 min read</a></p>
+											<p class="mb-0"><a href="#">{{ article.created_at|date:"m/d/Y" }}</a> | <a href="#">{{ article.created_at|timesince }}</a> read</p>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="case">
+						<!-- <div class="case">
 							<div class="row">
 								<div class="col-md-6 col-lg-6 col-xl-8 d-flex">
 									<a href="blog-single.html" class="img w-100 mb-3 mb-md-0" style="background-image: url({% static 'images/image_2.jpg' %});"></a>
@@ -219,7 +219,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					{% endfor %}
 				</div> <!-- Fixed indentation -->
 			</div> <!-- Fixed indentation -->
