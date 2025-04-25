@@ -4,7 +4,15 @@ from .models import Article, Category, Comment, Tags, Author
 
 
 def article_list(request):
+    tag = request.GET.get('tag')
+    category = request.GET.get('category')
     article = Article.objects.all()
+
+    if tag:
+        article = article.filter(tags__name=tag)
+
+    if category:
+        article = article.filter(category__name=category)
 
     context = {
         'articles': article,
@@ -19,11 +27,13 @@ def article_detail(request, slug):
     article = get_object_or_404(Article, slug=slug)
     author = Author.objects.all()
     category = Category.objects.all()
+    tags = Tags.objects.all()
 
     context = {
         'article': article,
         'author': author,
         'category': category,
+        'tags': tags
     }
 
 
