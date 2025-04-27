@@ -46,7 +46,7 @@
 							</div>
 						</div>
 						<h3 class="heading mb-3"><a href="{% url 'article:detail' article.slug %}">{{ article.title }}</a></h3>
-						<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+						<p>{{ article.content|safe|slice:":200" }}...</p>
 						<p><a href="{% url 'article:detail' article.slug %}" class="btn-custom"><span class="ion-ios-arrow-round-forward mr-3"></span>Read more</a></p>
 					</div>
 				</div>

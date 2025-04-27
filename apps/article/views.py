@@ -1,12 +1,24 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category, Comment, Tags, Author
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 
 def article_list(request):
+    page = request.GET.get('page')
     tag = request.GET.get('tag')
     category = request.GET.get('category')
     article = Article.objects.all()
+
+    paginator = Paginator(article, 3)  # 3 ta maqola har sahifada
+    try:
+        article = paginator.page(page)
+    except PageNotAnInteger:
+        article = paginator.page(1)
+    except EmptyPage:
+        article = paginator.page(paginator.num_pages)
+    
+
 
     if tag:
         article = article.filter(tags__name=tag)
@@ -15,7 +27,7 @@ def article_list(request):
         article = article.filter(category__name=category)
 
     context = {
-        'articles': article,
+        'articles': page,
     }
 
 
@@ -38,3 +50,4 @@ def article_detail(request, slug):
 
 
     return render(request, 'article/blog-single.html', context)
+
