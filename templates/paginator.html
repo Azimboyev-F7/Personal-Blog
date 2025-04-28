@@ -2,17 +2,20 @@
     <div class="col text-center">
         <div class="block-27">
             <ul>
-                <li><a href="#" {% if page.has_previous %} href="?page={{ page.previous_page_number }}"{% endif %}>&lt;</a></li>
-                {% for i in page.paginator.page_range %}
-                    {% if page.number == i %}
-                        <li class="active"><span>{{ i }}</span></li>
-                    {% else %}
-                        <li><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
+                {% if articles.has_previous %}
+                    <li><a href="?page={{ articles.previous_page_number }}">&lt;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&lt;</span></li>
+                {% endif %}
+                {% for page_number in articles.paginator.page_range %}
+                <li class="{% if object_list.number == page_number %}active{% endif %} "><a href="?page={{ page_number }}"><span>{{ page_number }}</span></a></li>
                 {% endfor %}
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">&gt;</a></li>
+
+                {% if articles.has_next %}
+                    <li><a href="?page={{ articles.next_page_number }}">&gt;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&gt;</span></li>
+                {% endif %}
             </ul>
         </div>
     </div>

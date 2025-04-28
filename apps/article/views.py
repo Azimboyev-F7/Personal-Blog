@@ -10,13 +10,13 @@ def article_list(request):
     category = request.GET.get('category')
     article = Article.objects.all()
 
-    paginator = Paginator(article, 3)  # 3 ta maqola har sahifada
+    paginator = Paginator(article, 2)  # 3 ta maqola har sahifada
     try:
-        article = paginator.page(page)
+        page_objects = paginator.get_page(page)
     except PageNotAnInteger:
-        article = paginator.page(1)
+        page_objects = paginator.get_page(1)
     except EmptyPage:
-        article = paginator.page(paginator.num_pages)
+        page_objects = paginator.get_page(paginator.num_pages)
     
 
 
@@ -27,7 +27,7 @@ def article_list(request):
         article = article.filter(category__name=category)
 
     context = {
-        'articles': page,
+        'articles': page_objects,
     }
 
 
