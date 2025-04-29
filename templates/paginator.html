@@ -8,7 +8,8 @@
                     <li class="disabled"><span>&lt;</span></li>
                 {% endif %}
                 {% for page_number in articles.paginator.page_range %}
-                <li class="{% if object_list.number == page_number %}active{% endif %} "><a href="?page={{ page_number }}"><span>{{ page_number }}</span></a></li>
+                <li class="{% if articles.number == page_number %}active{% endif %} ">
+                    <a href="?page={{ page_number }}"><span>{{ page_number }}</span></a></li>
                 {% endfor %}
 
                 {% if articles.has_next %}
