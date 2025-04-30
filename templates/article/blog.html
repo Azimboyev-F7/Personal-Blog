@@ -28,35 +28,33 @@
     </div>
 
    	<section class="ftco-section bg-light">
-      <div class="container">
-        <div class="row d-flex">
-          {% for article in articles %}
-			<div class="col-md-4 d-flex ftco-animate">
-				<div class="blog-entry justify-content-end">
-					<a href="{% url 'article:detail' article.slug %}" class="block-20" style="background-image: url('{{ article.image.url }}');">
-					</a>
-					<div class="text p-4 float-right d-block">
-						<div class="topper d-flex align-items-center">
-							<div class="one py-2 pl-3 pr-1 align-self-stretch">
-								<span class="day">{{ article.created_at|date:"d" }}</span>
-							</div>
-							<div class="two pl-0 pr-3 py-2 align-self-stretch">
-								<span class="yr">{{ article.created_at|date:"Y" }}</span>
-								<span class="mos">{{ article.created_at|date:"F" }}</span>
+      	<div class="container">
+			<div class="row d-flex">
+				{% for article in articles %}
+					<div class="col-md-4 d-flex ftco-animate">
+						<div class="blog-entry justify-content-end">
+							<a href="{% url 'article:detail' article.slug %}" class="block-20" style="background-image: url('{{ article.image.url }}');">
+							</a>
+							<div class="text p-4 float-right d-block">
+								<div class="topper d-flex align-items-center">
+									<div class="one py-2 pl-3 pr-1 align-self-stretch">
+										<span class="day">{{ article.created_at|date:"d" }}</span>
+									</div>
+									<div class="two pl-0 pr-3 py-2 align-self-stretch">
+										<span class="yr">{{ article.created_at|date:"Y" }}</span>
+										<span class="mos">{{ article.created_at|date:"F" }}</span>
+									</div>
+								</div>
+								<h3 class="heading mb-3"><a href="{% url 'article:detail' article.slug %}">{{ article.title }}</a></h3>
+								<p>{{ article.content|safe|slice:":200" }}...</p>
+								<p><a href="{% url 'article:detail' article.slug %}" class="btn-custom"><span class="ion-ios-arrow-round-forward mr-3"></span>Read more</a></p>
 							</div>
 						</div>
-						<h3 class="heading mb-3"><a href="{% url 'article:detail' article.slug %}">{{ article.title }}</a></h3>
-						<p>{{ article.content|safe|slice:":200" }}...</p>
-						<p><a href="{% url 'article:detail' article.slug %}" class="btn-custom"><span class="ion-ios-arrow-round-forward mr-3"></span>Read more</a></p>
 					</div>
-				</div>
+				{% endfor %}
 			</div>
-		  {% endfor %}
-	
-          </div>
+		  	{% include 'paginator.html' %}
         </div>
-        {% include 'paginator.html' %}
-      </div>
     </section>
 
 {% endblock %}

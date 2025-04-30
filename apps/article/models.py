@@ -57,9 +57,10 @@ class Subarticle(models.Model):
     
 
 class Comment(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=221)
     message = models.TextField()
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='comments/')
     created_at = models.DateTimeField(auto_now_add=True)
 

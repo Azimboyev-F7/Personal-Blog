@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Article, Category, Comment, Tags, Author
+from .models import Article, Category, Comment, Tags, Author, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 
 
@@ -36,10 +37,13 @@ def article_list(request):
 
 
 def article_detail(request, slug):
+
     article = get_object_or_404(Article, slug=slug)
     author = Author.objects.all()
     category = Category.objects.all()
     tags = Tags.objects.all()
+
+    comments = Comment.objects.filter(article.id=article.id)
 
     context = {
         'article': article,
