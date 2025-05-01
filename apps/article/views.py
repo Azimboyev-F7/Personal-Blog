@@ -43,7 +43,6 @@ def article_detail(request, slug):
     category = Category.objects.all()
     tags = Tags.objects.all()
 
-    comments = Comment.objects.filter(article.id=article.id)
 
     context = {
         'article': article,

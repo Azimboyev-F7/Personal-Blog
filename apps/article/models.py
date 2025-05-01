@@ -59,6 +59,7 @@ class Subarticle(models.Model):
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    top_comment_id = models.IntegerField(null=True, blank=True)  
     name = models.CharField(max_length=221)
     message = models.TextField()
     image = models.ImageField(upload_to='comments/')
@@ -66,7 +67,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.name
+    
 
+    @property
+    def get_children(self):
+        return Comment.objects.filter(top_comment_id=self.id)
 
 
 def article_pre_save(sender, instance, *args, **kwargs):
