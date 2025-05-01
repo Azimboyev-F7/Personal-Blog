@@ -43,12 +43,15 @@ def article_detail(request, slug):
     category = Category.objects.all()
     tags = Tags.objects.all()
 
+    comment = Comment.objects.filter(article_id=article.id, top_level_comment_id__isnull=True)
+
 
     context = {
         'article': article,
         'author': author,
         'category': category,
-        'tags': tags
+        'tags': tags,
+        'comment': comment,
     }
 
 
