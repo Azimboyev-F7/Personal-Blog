@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Article, Category, Comment, Tags, Author, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .forms import CommentForm
 
 # Create your views here.
 
@@ -43,15 +44,26 @@ def article_detail(request, slug):
     category = Category.objects.all()
     tags = Tags.objects.all()
 
-    comment = Comment.objects.filter(article_id=article.id, top_level_comment_id__isnull=True)
+    comments = Comment.objects.filter(article_id=article.id, top_level_comment_id__isnull=True)
 
+    form = CommentForm()
+    cid = request.GET.get('cid')
+    if request.method == 'POST':
+        form = CommentForm(request.POST, files=request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.parent_id = cid
+            comment.save()
+            return redirect('article:detail', slug=slug)
 
     context = {
         'article': article,
         'author': author,
         'category': category,
         'tags': tags,
-        'comment': comment,
+        'comments': comments,
+        'form': form,
     }
 
 
