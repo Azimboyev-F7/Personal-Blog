@@ -72,21 +72,21 @@
                       </div>
             
                       {% if comment.children.all %}
-                      <ul class="children">
-                        {% for child in comment.children.all %}
-                          <li class="comment">
-                            <div class="vcard bio">
-                              <img src="{{ child.image.url }}" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                              <h3>{{ child.name }}</h3>
-                              <div class="meta mb-3">{{ child.created_at|date:"F d, Y \\a\\t h:i A" }}</div>
-                              <p>{{ child.message }}</p>
-                              <p><a href="?cid={{ child.id }}" class="reply">Reply</a></p>
-                            </div>
-                          </li>
-                        {% endfor %}
-                      </ul>
+                        <ul class="children">
+                          {% for child in comment.children.all %}
+                            <li class="comment">
+                              <div class="vcard bio">
+                                <img src="{{ child.image.url }}" alt="Image placeholder">
+                              </div>
+                              <div class="comment-body">
+                                <h3>{{ child.name }}</h3>
+                                <div class="meta mb-3">{{ child.created_at|date:"F d, Y \\a\\t h:i A" }}</div>
+                                <p>{{ child.message }}</p>
+                                <p><a href="?cid={{ child.id }}" class="reply">Reply</a></p>
+                              </div>
+                            </li>
+                          {% endfor %}
+                        </ul>
                       {% endif %}
             
                     </li>

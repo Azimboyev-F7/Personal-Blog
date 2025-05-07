@@ -58,7 +58,7 @@ class Subarticle(models.Model):
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='children', null=True, blank=True)
     top_level_comment_id = models.IntegerField(null=True, blank=True)  
     name = models.CharField(max_length=221)
     message = models.TextField()
@@ -72,6 +72,14 @@ class Comment(models.Model):
     @property
     def get_children(self):
         return Comment.objects.filter(top_comment_id=self.id)
+    
+def comment_pre_save(sender, instance, *args, **kwargs):
+    if instance.parent:
+        if instance.parent.top_level_comment_id:
+            instance.top_level_comment_id = instance.parent.top_level_comment_id
+        else:
+            instance.top_level_comment_id = instance.parent.id
+
 
 
 def article_pre_save(sender, instance, *args, **kwargs):
@@ -81,3 +89,4 @@ def article_pre_save(sender, instance, *args, **kwargs):
         instance.slug += f"-{str(uuid.uuid4()).split('-')[0]}"
 
 pre_save.connect(article_pre_save, sender=Article)
+pre_save.connect(comment_pre_save, sender=Comment)

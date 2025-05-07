@@ -49,7 +49,7 @@ def article_detail(request, slug):
     form = CommentForm()
     cid = request.GET.get('cid')
     if request.method == 'POST':
-        form = CommentForm(request.POST, files=request.FILES)
+        form = CommentForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.article = article
