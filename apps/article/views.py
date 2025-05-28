@@ -12,6 +12,17 @@ def article_list(request):
     category = request.GET.get('category')
     article = Article.objects.all()
 
+    if tag:
+        article = article.filter(tags__name__iexact=tag)
+
+    if category:
+        article = article.filter(category__name=category)
+
+    empty_result = False
+    if category and not article.exists():
+        empty_result = True
+
+
     paginator = Paginator(article, 2)  # 3 ta maqola har sahifada
     try:
         page_objects = paginator.get_page(page)
@@ -20,16 +31,10 @@ def article_list(request):
     except EmptyPage:
         page_objects = paginator.get_page(paginator.num_pages)
     
-
-
-    if tag:
-        article = article.filter(tags__name=tag)
-
-    if category:
-        article = article.filter(category__name=category)
-
     context = {
         'articles': page_objects,
+        'empty_result': empty_result,
+        'selected_category': category,
     }
 
 
